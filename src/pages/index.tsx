@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
 import styles from '../styles/Home.module.css';
@@ -66,79 +67,96 @@ export default function Home() {
   }
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between`}
-    >
-      <header className={styles.header}>
-        <h1>OpenWeather</h1>
-        <div>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Enter Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-      </header>
-
-      <div className={styles.data}>
+    <>
+      <div className={styles.headercontainer}>
         {currentData && (
-          <div className={styles.current}>
-            <div>
-              <p className={styles.celsius}>{Math.round(currentData.main.temp - 273.15).toFixed(1)}°C</p>
-              <p className={styles.city}>{currentData.name}</p>
-            </div>
-            <div className={styles.info}>
-              <Image
-                src={getIcon(currentData.weather[0].main)}
-                alt={currentData.weather[0].main}
-                className={styles.bigIcon}
-                width={100}
-                height={100}
+          <header className={styles.header}>
+            <Image src={'/icons/solar.svg'} alt="solar logo" width={100} height={100} />
+            <div className={styles.search}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="city"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
               />
-              <p>{currentData.weather[0].main}</p>
-              <p>Wind speed: {currentData.wind.speed}</p>
-              <p>Last Updated: {currentDate(currentData.dt)}</p>
+              <button onClick={handleSearch}>
+                <Image src={'/icons/search.svg'} alt="solar logo" width={20} height={20} />
+              </button>
             </div>
-          </div>
+          </header>
         )}
-        {
-          currentData ? <div>
-            {forecastData && (
-              <div className={styles.forecast}>
-                {forecastData.list
-                  .filter((_, index) => index % 8 === 0)
-                  .slice(0, 6)
-                  .map((forecast) => (
-                    <div key={forecast.dt_txt} className={styles.card}>
-                      <p>{forecastDate(forecast.dt_txt)}</p>
-                      <Image
-                        src={getIcon(forecast.weather[0].main)}
-                        alt={forecast.weather[0].main}
-                        className={styles.smallIcon}
-                        width={50}
-                        height={50}
-                      />
-                      <p>{Math.round(forecast.main.temp - 273.15)}°C</p>
-                      <p>{forecast.weather[0].main}</p>
-                      <p>{forecast.weather[0].description}</p>
-                      <p>Wind: {forecast.wind.speed}</p>
-                    </div>
-                  ))}
-              </div>
-            )} </div> :
-            <div className={styles.default}>
-              Enter location to view weather
-            </div>
-        }
       </div>
-
+      <div className={styles.container}>
+        <div className={styles.data}>
+          {currentData && (
+            <div className={styles.current}>
+              <div>
+                <p className={styles.celsius}>{Math.round(currentData.main.temp - 273.15).toFixed(1)}°C</p>
+                <p className={styles.city}>{currentData.name}</p>
+              </div>
+              <div className={styles.info}>
+                <Image
+                  src={getIcon(currentData.weather[0].main)}
+                  alt={currentData.weather[0].main}
+                  className={styles.bigIcon}
+                  width={100}
+                  height={100}
+                />
+                <p>{currentData.weather[0].main}</p>
+                <p>Wind speed: {currentData.wind.speed}</p>
+                <p>Last Updated: {currentDate(currentData.dt)}</p>
+              </div>
+            </div>
+          )}
+          {
+            currentData ? <div>
+              {forecastData && (
+                <div className={styles.forecast}>
+                  {forecastData.list
+                    .filter((_, index) => index % 8 === 0)
+                    .slice(0, 6)
+                    .map((forecast) => (
+                      <div key={forecast.dt_txt} className={styles.card}>
+                        <p>{forecastDate(forecast.dt_txt)}</p>
+                        <Image
+                          src={getIcon(forecast.weather[0].main)}
+                          alt={forecast.weather[0].main}
+                          className={styles.smallIcon}
+                          width={50}
+                          height={50}
+                        />
+                        <p>{Math.round(forecast.main.temp - 273.15)}°C</p>
+                        <p>{forecast.weather[0].main}</p>
+                        <p>{forecast.weather[0].description}</p>
+                        <p>Wind: {forecast.wind.speed}</p>
+                      </div>
+                    ))}
+                </div>
+              )} </div> :
+              <div className={styles.default}>
+                <Image src={'/icons/solar.svg'} alt="solar logo" width={200} height={200} />
+                <h1>enter location to view weather</h1>
+                <div className={styles.search}>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="city"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
+                  <button onClick={handleSearch}>
+                    <Image src={'/icons/search.svg'} alt="solar logo" width={20} height={20} />
+                  </button>
+                </div>
+              </div>
+          }
+        </div>
+      </div>
       <footer className={styles.footer}>
-        <h1>Created by Mariela</h1>
-        <p>2022 - 2024</p>
+        <h1>Created by Mariela Pedrano</h1>
+        <Link href="https://github.com/mpedrano/weather-app-2024">GitHub Repo</Link>
       </footer>
-    </main>
+    </>
   );
 }

@@ -1,13 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.headercontainer {
+    display: flex;
+    justify-content: center;
+}
+
 .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 80%;
+    position: fixed;
 }
 
 .default {
-    font-size: 2rem;
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 3rem 3rem 3rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .input {
@@ -16,6 +45,10 @@
     padding-left: 1rem;
     margin-right: 1rem;
     background: none;
+}
+
+.input::placeholder {
+    color: white;
 }
 
 .data {
