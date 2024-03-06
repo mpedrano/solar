@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 import axios from "axios";
 import { useState } from "react";
 import styles from '../styles/Home.module.css';
@@ -68,6 +69,11 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Solar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/icons/logosun.svg" />
+      </Head>
       <div className={styles.headercontainer}>
         {currentData && (
           <header className={styles.header}>
